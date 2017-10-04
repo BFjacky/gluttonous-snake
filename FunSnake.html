@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FunSnake</title>
+    <style>
+        html,
+        body,
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        .all {
+            width: 600px;
+            height: 650px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .map {
+            display: flex;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            width: 600px;
+            height: 600px;
+            flex-wrap: wrap;
+            background-image: url(imgs/map.png);
+        }
+
+        .block_white {
+            width: 20px;
+            height: 20px;
+            background-color: rgb(68, 47, 41);
+            border-radius: 10px;
+            position: absolute;
+        }
+
+        .food_white {
+            width: 20px;
+            height: 20px;
+            background-color: #E6EB9F;
+            position: absolute;
+            border-radius: 10px;
+        }
+
+        .controlBar {
+            display: flex;
+            margin: 0 auto;
+            width: 600px;
+            height: 50px;
+        }
+
+        .score {
+            width: 550px;
+            height: 50px;
+            display: flex;
+            font-size: 35px;
+            font-weight: 900;
+            text-align: left;
+            line-height: 50px;
+            margin-left: 8px;
+        }
+
+        .restart {
+            width: 50px;
+            height: 50px;
+            background-image: url(imgs/restart_small.jpg)
+        }
+
+        .restart:hover {
+            width: 50px;
+            height: 50px;
+            background-image: url(imgs/restart_small_hover.jpg)
+        }
+
+        .restart:active {
+            width: 50px;
+            height: 50px;
+            background-image: url(imgs/restart_small_active.jpg)
+        }
+
+        .record {
+            width: 300px;
+            height: 200px;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50, -50%);
+            background-color: black;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="all" class="all">
+        <div class="controlBar">
+            <div class="score" v-text="score">
+            </div>
+            <div class="restart" v-on:click="restart">
+            </div>
+        </div>
+        <div id="map" class="map" v-html="drawHtml">
+        </div>
+        <div class="record"></div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var vm = new Vue({
+            el: "#all",
+            data: {
+                drawHtml: '',
+                score: '蛇身长度:1',
+            },
+            methods: {
+                restart: function () {
+                    console.log('restart');
+                    begin();
+                },
+                draw: function (html) {
+                    this.drawHtml = html;
+                },
+                changeScore: function (bodyLength) {
+                    this.score = '蛇身长度:' + bodyLength;
+                }
+            }
+        })
+    </script>
+    <script type="text/javascript" src="./js/snake.js"></script>
+</body>
+
+</html>
